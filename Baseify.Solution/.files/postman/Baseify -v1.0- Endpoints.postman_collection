@@ -1,0 +1,359 @@
+{
+	"info": {
+		"_postman_id": "ea22e98a-1d0a-4a2e-8fa1-79e06c1ffb04",
+		"name": "Baseify",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "5611507"
+	},
+	"item": [
+		{
+			"name": "Apartments",
+			"item": [
+				{
+					"name": "Search Apartments",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_url}}/api/v1/apartments?startDate=07-20-2024&endDate=07-24-2024",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"apartments"
+							],
+							"query": [
+								{
+									"key": "startDate",
+									"value": "07-20-2024"
+								},
+								{
+									"key": "endDate",
+									"value": "07-24-2024"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Bookings",
+			"item": [
+				{
+					"name": "Reserve Booking",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"apartmentId\": \"82cbdb9e-03cb-421b-a734-8e1c2931a0c8\",\r\n    \"userId\": \"3a82627c-53ff-4c83-9d04-5be96a4678b9\",\r\n    \"startDate\": \"2024-08-20\",\r\n    \"endDate\": \"2024-08-25\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_url}}/api/v1/bookings",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bookings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Booking",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_url}}/api/v1/bookings/ad4e3a15-d3bb-478e-a518-6a4f6f1d17ae",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bookings",
+								"ad4e3a15-d3bb-478e-a518-6a4f6f1d17ae"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Log in User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"daniel.diego@simpat.tech\",\r\n    \"password\": \"12345\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_url}}/api/v1/users/login",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"daniel.diego@simpat.tech\",\r\n    \"firstName\": \"Daniel\",\r\n    \"lastName\": \"Diego\",\r\n    \"password\": \"12345\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_url}}/api/v1/users/register",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Logged In User",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_url}}/api/v1/users/me",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"me"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Identity",
+			"item": [
+				{
+					"name": "Access Token",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "client_id",
+									"value": "baseify-auth-client",
+									"type": "text"
+								},
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "client_secret",
+									"value": "3E3yvXaYppoYBF3Ir6DgtEzADKKzSurZ",
+									"type": "text"
+								},
+								{
+									"key": "scope",
+									"value": "openid",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "daniel.diego@simpat.tech",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "12345",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:18080/realms/baseify/protocol/openid-connect/token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "18080",
+							"path": [
+								"realms",
+								"baseify",
+								"protocol",
+								"openid-connect",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Access Token Admin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "client_id",
+									"value": "baseify-admin-client",
+									"type": "text"
+								},
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "text"
+								},
+								{
+									"key": "client_secret",
+									"value": "UZDmbNxWmV4TlpaCRcju6pMRsyuV3er1",
+									"type": "text"
+								},
+								{
+									"key": "scope",
+									"value": "openid",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:18080/realms/baseify/protocol/openid-connect/token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "18080",
+							"path": [
+								"realms",
+								"baseify",
+								"protocol",
+								"openid-connect",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Health",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:18080/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "18080",
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Health",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{api_url}}/health",
+					"host": [
+						"{{api_url}}"
+					],
+					"path": [
+						"health"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJmcXNIUHo3QS1mUEhPLVIxekFkQ1RWY0hUTHdxT1hOYjU0YWtxUGVZb2swIn0.eyJleHAiOjE3MTg3NDAwMzEsImlhdCI6MTcxODczNjQzMSwianRpIjoiYjllNWQzMTctZjk0ZS00YmJiLTkzNjItNDBjNGRhYzlkNTdhIiwiaXNzIjoiaHR0cDovL2Jhc2VpZnktaWRwOjgwODAvcmVhbG1zL2Jhc2VpZnkiLCJhdWQiOiJhY2NvdW50Iiwic3ViIjoiZTdkNTBkN2UtMTI5Zi00Nzk2LThiN2ItYjFhODA4MjQxODRhIiwidHlwIjoiQmVhcmVyIiwiYXpwIjoiYmFzZWlmeS1hdXRoLWNsaWVudCIsInNpZCI6ImEzZWYyNTgxLTkwNTUtNGMwMS04YTE4LTFjNjUwOTY3MmQ0YyIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJkZWZhdWx0LXJvbGVzLWJhc2VpZnkiLCJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJvcGVuaWQgZW1haWwgcHJvZmlsZSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJuYW1lIjoiRGFuaWVsIERpZWdvIiwicHJlZmVycmVkX3VzZXJuYW1lIjoiZGFuaWVsLmRpZWdvQHNpbXBhdC50ZWNoIiwiZ2l2ZW5fbmFtZSI6IkRhbmllbCIsImZhbWlseV9uYW1lIjoiRGllZ28iLCJlbWFpbCI6ImRhbmllbC5kaWVnb0BzaW1wYXQudGVjaCJ9.O2pQAmaFwwtioC8BvzXoJMPORMe_7dqh-GuNbho0A6ix1cvtWGWWkEFhotTf3XnRN1DCtuOsg3WUdO1tI1ztBq_Yfm95C6QPNoO19XvgBFy0B9AgvwLE2p2xFE9MHq9lhMKAaGN28whD1Dv275UIzw-a97gFpPFrsPVecYVNC3J-qWgqp_BmnLkqwtOTTMi4j4e-Qy9BZ2--WRNv8jeBmguM3zPmnH4cP2WIE3ArMHnepRZVbQQrNe8ixswWoghhBSW21wj_IUOQrzUkaj7rgjmjXFcW1AIuvPn5nk6if2sR4ykZzJYiJhZZISz-79nxrn9Lr3a6q4A9ukRdP7GaZQ",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

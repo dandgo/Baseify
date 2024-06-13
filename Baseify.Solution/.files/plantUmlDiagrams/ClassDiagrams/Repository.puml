@@ -1,0 +1,40 @@
+@startuml Repository
+
+abstract Repository<T> {
+    # ApplicationDbContext: DbContext
+    + GetByIdAsync(Guid) : Task<T?>
+    + Add(T entity): void
+} 
+
+interface IApartmentRepository{
+    +GetByIdAsync(Guid) : Apartment?
+}
+
+class ApartmentRepository extends Repository implements IApartmentRepository {
+}
+
+interface IBookingRepository{
+    +GetByIdAsync(Guid) : Booking?
+    +IsOverlappingAsync(Apartment, DateRange) : bool
+    +Add(Booking): void
+}
+
+class BookingRepository extends Repository implements IBookingRepository {
+}
+
+interface IReviewRepository{
+    +Add(Guid) : void
+}
+
+class ReviewRepository extends Repository implements IReviewRepository {
+}
+
+interface IUserRepository{
+    +GetByIdAsync(Guid) : User?
+    +Add(User): void
+}
+
+class UserRepository extends Repository implements IUserRepository {
+   +^Add(User): void
+}
+@enduml

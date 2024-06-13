@@ -1,0 +1,51 @@
+@startuml User Login
+!theme bluegray
+
+title User Login (Jwt Token Request)
+actor User
+box "Presentation"
+  participant UserController
+end box
+box "Application"
+  participant LogInUserCommandHandler
+  participant IJwtService
+end box
+box IdP
+    participant KeyCloack
+end box
+
+activate UserController
+  User -> UserController: POST /login LogInUserRequest
+  
+  activate LogInUserCommandHandler
+    UserController -> LogInUserCommandHandler: LogInUserCommand
+    
+    activate IJwtService
+      LogInUserCommandHandler -> IJwtService: GetAccessTokenAsync
+      activate KeyCloack
+        IJwtService -> KeyCloack: POST /realms/baseify/protocol/openid-connect/token authRequestParameters
+        KeyCloack --> IJwtService: HttpResponseMessage
+      deactivate KeyCloack
+      alt#Gold #LightBlue Success
+        IJwtService --> LogInUserCommandHandler: AuthorizationToken
+      else #Pink AuthorizationToken is null or Exception
+        IJwtService -->LogInUserCommandHandler: AuthorizationToken(AuthenticationFailed)
+      end
+    deactivate IJwtService
+    
+    alt#Gold #LightBlue Success
+      LogInUserCommandHandler --> UserController: AccessTokenResponse
+    else #Pink AccessTokenResponse is Failure
+      LogInUserCommandHandler --> UserController: AccessTokenResponse(InvalidCredentials)
+    end
+
+  deactivate LogInUserCommandHandler
+
+  alt#Gold #LightBlue Success
+    UserController --> User: Ok(AccessTokenResponse)
+  else #Pink AccessTokenResponse is Failure
+    UserController --> User: Unauthorized(Error)
+  end
+
+deactivate UserController
+@enduml

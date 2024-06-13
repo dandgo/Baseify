@@ -1,0 +1,62 @@
+@startuml User Register
+!theme bluegray
+
+title User Register
+
+actor User 
+box "Presentation"
+    participant UserController
+end box
+box "Application"
+    participant RegisterUserCommandHandler
+end box
+box "Domain"
+    participant UserEntity
+    participant UnitOfWork
+end box
+box "Infrastructure"
+    participant AuthenticationService
+    participant UserRepository
+end box
+box IdP
+    participant KeyCloack
+end box
+     
+activate UserController
+    User -> UserController: POST /register RegisterUserRequest
+
+    activate RegisterUserCommandHandler
+        UserController -> RegisterUserCommandHandler: RegisterUserCommand
+        
+        activate UserEntity
+            RegisterUserCommandHandler -> UserEntity: Create(FirstName, LastName, Email)
+            UserEntity --> RegisterUserCommandHandler: User
+        deactivate UserEntity
+        
+        activate AuthenticationService
+            RegisterUserCommandHandler -> AuthenticationService: RegisterAsync(User,Password)
+            activate KeyCloack
+                AuthenticationService -> KeyCloack: POST /users UserRepresentationModel
+                KeyCloack --> AuthenticationService: HttpResponseMessage
+            deactivate KeyCloack
+            AuthenticationService --> RegisterUserCommandHandler: userIdentityId
+        deactivate AuthenticationService
+        
+        activate UserRepository
+            RegisterUserCommandHandler -> UserRepository: Add(User)
+        deactivate UserRepository
+        activate UnitOfWork
+            RegisterUserCommandHandler -> UnitOfWork: SaveChangesAsync
+        deactivate 
+
+        RegisterUserCommandHandler --> UserController: Id
+    deactivate RegisterUserCommandHandler
+    
+    alt#Gold #LightBlue Success
+        UserController --> User: Ok(Id)
+    else #Pink AccessTokenResponse is Failure
+        UserController --> User: BadRequest(Error)
+    end
+deactivate UserController
+
+@enduml

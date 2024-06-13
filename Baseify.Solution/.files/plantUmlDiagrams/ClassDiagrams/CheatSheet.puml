@@ -1,0 +1,56 @@
+@startuml Elements
+
+abstract class class1
+class class2
+class class3 <<stereotype>>
+annotation annotation
+circle circle
+diamond diamond
+entity entity
+enum enum
+exception exception
+protocol protocol
+interface interface
+metaclass metaclass
+stereotype stereotype
+struct struct
+
+@enduml
+
+@startuml Relationships
+
+Class01 <|-- Class02 : extension
+Class03 *-- Class04 : composition 
+Class05 o-- Class06 : aggregation
+
+Class07 .. Class08
+Class09 -- Class10
+Class11 <|.. Class12
+Class13 --> Class14
+Class15 ..> Class16
+Class17 ..|> Class18
+Class19 <--* Class20
+
+Class21 #-- Class22
+Class23 x-- Class24
+Class25 }-- Class26
+Class27 +-- Class28
+Class29 ^-- Class30
+
+Class31 "1" *-- "many" Class32 : contains
+Class33 o-- Class34 : aggregation
+Class35 --> "1" Class36
+@enduml
+
+@startuml
+class Dummy {
+ -privateField
+ #protectedField
+ ~internalField
+ +publicField
+ -privateMethod()
+ #protectedMethod()
+ ~internalMethod()
+ +publicMethod()
+}
+@enduml
